@@ -83,84 +83,59 @@
 ### **工作流可视化 (Spec-Driven Workflow)**
 
 ```mermaid
-%%{init: {'theme': 'default', 'themeVariables': { 'primaryColor': '#3b82f6', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#1d4ed8', 'lineColor': '#94a3b8', 'tertiaryColor': '#f8fafc', 'nodeBorder': '#cbd5e1', 'clusterBkg': '#f1f5f9', 'clusterBorder': '#e2e8f0', 'fontSize': '14px' }}}%%
 graph LR
-    %% 主流程节点
-    Start(["🎯 开始<br/>提出原始需求<br/>+ Requirement ID"])
-    End(["🚀 交付<br/>代码 + 变更清单"])
+    Start([开始<br/>需求+ID])
+    End([交付<br/>代码+清单])
+    Master[[工作流总控]]
+    IDCheck{ID唯一性校验}
     
-    Master[["🛠️ workflow-master<br/>工作流总控"]]
-    
-    IDCheck{"✅ Requirement ID<br/>唯一性校验"}
-    
-    subgraph S1 [第一阶段：需求分析]
-        A1["📋 requirement-analyst"]
-        B1["📄 产出 PRD 文档<br/>requirement-{ID}.md"]
-        C1{"👁️ 人工审计"}
+    subgraph S1[需求分析]
+        A1[requirement-analyst]
+        B1[PRD文档]
+        C1{人工审计}
     end
 
-    subgraph S2 [第二阶段：交互设计]
-        A2["🎨 ui-ux-designer"]
-        B2["🖼️ 产出设计规格<br/>design-{ID}.md"]
-        C2{"👁️ 人工审计"}
+    subgraph S2[交互设计]
+        A2[ui-ux-designer]
+        B2[设计规格]
+        C2{人工审计}
     end
 
-    subgraph S3 [第三阶段：系统架构]
-        A3["🏗️ system-architect"]
-        B3["🔗 产出 API 契约<br/>api-{ID}.md"]
-        C3{"👁️ 人工审计"}
+    subgraph S3[系统架构]
+        A3[system-architect]
+        B3[API契约]
+        C3{人工审计}
     end
 
-   subgraph S4 [第四阶段：工程实现]
-        A4["💻 project-implementer"]
-        B4["⚙️ 生成前后端代码<br/>+ code-{ID}.md"]
+    subgraph S4[工程实现]
+        A4[project-implementer]
+        B4[代码+变更清单]
     end
 
-    %% 连接关系
     Start --> Master
     Master --> IDCheck
     
-    IDCheck -- "ID 重复" --> Start
-    IDCheck -- "ID 有效" --> A1
+    IDCheck -- ID重复 --> Start
+    IDCheck -- ID有效 --> A1
     
     A1 --> B1 --> C1
-    C1 -- "✅ 通过" --> A2
-    C1 -- "❌ 需修正" --> A1
+    C1 -- 通过 --> A2
+    C1 -- 需修正 --> A1
     
     A2 --> B2 --> C2
-    C2 -- "✅ 通过" --> A3
-    C2 -- "❌ 需修正" --> A2
+    C2 -- 通过 --> A3
+    C2 -- 需修正 --> A2
     
     A3 --> B3 --> C3
-    C3 -- "✅ 通过" --> A4
-    C3 -- "❌ 需修正" --> A3
+    C3 -- 通过 --> A4
+    C3 -- 需修正 --> A3
     
     A4 --> B4 --> End
 
-    %% 样式美化
-    style Start fill:#10b981,color:#ffffff,stroke:#047857
-    style End fill:#ef4444,color:#ffffff,stroke:#dc2626
-    style Master fill:#6366f1,color:#ffffff,stroke:#4f46e5,stroke-width:2px
-    style IDCheck fill:#f59e0b,color:#ffffff,stroke:#d97706,stroke-width:2px
-    
-    style A1 fill:#3b82f6,color:#ffffff
-    style A2 fill:#8b5cf6,color:#ffffff
-    style A3 fill:#06b6d4,color:#ffffff
-    style A4 fill:#f59e0b,color:#ffffff
-    
-    style B1 fill:#93c5fd,stroke:#3b82f6
-    style B2 fill:#c4b5fd,stroke:#8b5cf6
-    style B3 fill:#67e8f9,stroke:#06b6d4
-    style B4 fill:#fde68a,stroke:#f59e0b
-    
-    style C1 fill:#f3f4f6,stroke:#9ca3af
-    style C2 fill:#f3f4f6,stroke:#9ca3af
-    style C3 fill:#f3f4f6,stroke:#9ca3af
-
-    style S1 fill:#f1f5f9,stroke:#cbd5e1
-    style S2 fill:#f1f5f9,stroke:#cbd5e1
-    style S3 fill:#f1f5f9,stroke:#cbd5e1
-    style S4 fill:#f1f5f9,stroke:#cbd5e1
+    style Start fill:#10b981
+    style End fill:#ef4444
+    style Master fill:#6366f1
+    style IDCheck fill:#f59e0b
 ```
 
 ---
