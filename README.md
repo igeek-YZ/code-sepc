@@ -8,24 +8,6 @@
 
 ---
 
-## 🎯 适用人群
-
-| 角色 | 为什么需要它？ |
-| :--- | :--- |
-| **创业者/产品经理** | 不懂技术？没关系。你只需描述需求，AI 照着规范生成可运行的代码，减少沟通成本。 |
-| **独立开发者** | 一个人搞定前后端。用规范锁定需求，避免自己前后逻辑不一致。 |
-| **技术团队负责人** | 建立团队统一标准，让 AI 生成的代码风格一致，降低后期维护成本。 |
-
----
-
-## 🏃 典型使用场景
-
-- **快速验证想法**：凌晨 3 点有个产品想法，用 Trae 召唤 workflow-master，2 小时后拿到可运行的原型。
-- **外包项目交接**：把规范文档甩给 AI，任何人接手都能生成一致风格的代码。
-- **遗留系统重构**：用规范重新定义接口，AI 辅助迁移，保证新接口 100% 兼容旧逻辑。
-
----
-
 ## 📚 规范文档导航
 
 | 类别 | 文档名称 | 说明 |
@@ -89,25 +71,25 @@ graph LR
     Master[[工作流总控]]
     IDCheck{ID唯一性校验}
     
-    subgraph S1[需求分析]
+    subgraph S1 ["需求分析"]
         A1[requirement-analyst]
         B1[PRD文档]
         C1{人工审计}
     end
 
-    subgraph S2[交互设计]
+    subgraph S2 ["交互设计"]
         A2[ui-ux-designer]
         B2[设计规格]
         C2{人工审计}
     end
 
-    subgraph S3[系统架构]
+    subgraph S3 ["系统架构"]
         A3[system-architect]
         B3[API契约]
         C3{人工审计}
     end
 
-    subgraph S4[工程实现]
+    subgraph S4 ["工程实现"]
         A4[project-implementer]
         B4[代码+变更清单]
     end
@@ -115,27 +97,27 @@ graph LR
     Start --> Master
     Master --> IDCheck
     
-    IDCheck -- ID重复 --> Start
-    IDCheck -- ID有效 --> A1
+    IDCheck -- "ID重复" --> Start
+    IDCheck -- "ID有效" --> A1
     
     A1 --> B1 --> C1
-    C1 -- 通过 --> A2
-    C1 -- 需修正 --> A1
+    C1 -- "通过" --> A2
+    C1 -- "需修正" --> A1
     
     A2 --> B2 --> C2
-    C2 -- 通过 --> A3
-    C2 -- 需修正 --> A2
+    C2 -- "通过" --> A3
+    C2 -- "需修正" --> A2
     
     A3 --> B3 --> C3
-    C3 -- 通过 --> A4
-    C3 -- 需修正 --> A3
+    C3 -- "通过" --> A4
+    C3 -- "需修正" --> A3
     
     A4 --> B4 --> End
 
-    style Start fill:#10b981
-    style End fill:#ef4444
-    style Master fill:#6366f1
-    style IDCheck fill:#f59e0b
+    style Start fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
+    style End fill:#ef4444,stroke:#dc2626,stroke-width:2px,color:#fff
+    style Master fill:#6366f1,stroke:#4f46e5,stroke-width:2px,color:#fff
+    style IDCheck fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#fff
 ```
 
 ---
@@ -174,20 +156,6 @@ AI 会分 4 阶段产出文档，每完成一步都会停下来请你确认：
 | 设计 | `docs/2-design/` | `design-{RequirementID}.md` |
 | API | `docs/3-api/` | `api-{RequirementID}.md` |
 | 代码变更 | `docs/code/` | `code-{RequirementID}.md` |
-
----
-
-## 🎯 核心理念 (OpenSpec)
-
-> **与其直接让 AI 写代码，不如先写"需求文档"。文档就是法律，AI 只负责执行。**
-
-本项目的所有规范均遵循 **OpenSpec** 思想：
-
-| 原则 | 说明 |
-| :--- | :--- |
-| **意图锁定 (Lock Intent)** | 通过表格和 Gherkin 语法，把"我觉得"变成"必须是"。 |
-| **单一事实来源 (Single Source of Truth)** | 文档就是法律。AI 生成代码时只看文档，不靠猜。 |
-| **可执行性 (Executable)** | 规范不只是给人看的，更是直接喂给 AI 的高精度指令。 |
 
 ---
 
