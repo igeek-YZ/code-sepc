@@ -168,12 +168,14 @@ AI 会分 4 阶段产出文档，每完成一步都会停下来请你确认：
 
 ## ⚠️ 部署前置配置
 
-在运行 `scripts/` 目录下的自动化部署脚本前，请确保完成以下配置：
+在运行 `scripts/` 目录下的自动化部署脚本前，请确保已在 [规范-技术栈 & 系统环境](./规范-技术栈&系统环境.md) 的 **全局定义** 章节中配置了以下关键变量：
 
-| 配置项 | 说明 | 示例 |
+| 类别 | 关键变量 | 说明 |
 | :--- | :--- | :--- |
-| **服务器信息** | 目标服务器 IP、SSH 端口、用户名、密钥/密码 | IP: 192.168.1.100, User: deploy |
-| **部署路径** | 应用在服务器上的存放目录 | `/var/www/app` 或 `/opt/backend` |
-| **数据库连接** | JDBC URL、用户名、密码 | `jdbc:mysql://localhost:3306/db` |
-| **中间件配置** | Redis、消息队列、对象存储等连接信息 | Redis: `redis://localhost:6379` |
-| **环境参数** | JVM 参数、Nginx 配置、SSL 证书路径 | `-Xmx512m`, `/etc/nginx/ssl/` |
+| **服务器** | `{{SERVER_IP}}`, `{{SSH_PORT}}`, `{{SSH_USER}}` | 目标服务器连接信息 |
+| **路径** | `{{DEPLOY_ROOT}}`, `{{BACKEND_CODE_DIR}}`, `{{FRONTEND_CODE_DIR}}` | 应用存放与源码路径 |
+| **数据库** | `{{DB_URL}}`, `{{DB_USER}}`, `{{DB_PASSWORD}}` | 数据库连接配置 |
+| **中间件** | `{{REDIS_HOST}}`, `{{REDIS_PORT}}`, `{{REDIS_PASSWORD}}` | Redis 等连接配置 |
+| **网络** | `{{DOMAIN_OR_PORT}}` | 访问域名或公网端口 |
+
+AI 将自动读取这些变量来生成配置文件和发布脚本。建议在项目启动阶段由 `workflow-master` 引导完成确认。
